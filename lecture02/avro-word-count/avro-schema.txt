@@ -1,0 +1,5 @@
+{'type': 'record', 'name': '__Record1', 'fields': [{'name': 'count', 'type': 'int'}, {'name': 'word', 'type': 'string'}]}
+
+Schemaet er to columns:
+
+count | word
