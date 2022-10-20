@@ -1,0 +1,4 @@
+SELECT * FROM positive_words INNER JOIN word_counts ON positive_words.col = word_counts.word;
+
+#Sum af negative_words
+SELECT SUM(word_counts.count) FROM negative_words INNER JOIN word_counts ON negative_words.col = word_counts.word;
