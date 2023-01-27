@@ -2,7 +2,7 @@
 FROM ubuntu:18.04
 # Settings labels
 # Originally: LABEL Name=flume Version=0.0.1 Maintainer="Jakob Hviid <jah@mmmi.sdu.dk>"
-# Changed by Group 05, SDU 2021
+# Changed by Group 03, SDU 2022
 
 # installing needed packages
 RUN apt-get update 
@@ -20,16 +20,16 @@ RUN mv apache-flume-1.9.0-bin flume
 RUN echo 'export FLUME_HOME=/flume/' >> ~/.bashrc
 RUN echo 'export PATH=$PATH:$FLUME_HOME/bin/' >> ~/.bashrc
 RUN echo 'export PATH=$PATH:$FLUME_HOME/bin/flume-ng' >> ~/.bashrc
-# RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/' >> ~/.bashrc # CHANGE DEPENDING ON CHIP ARCHITECTURE
-RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-arm64/jre/' >> ~/.bashrc
-# RUN export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/ # CHANGE DEPENDING ON CHIP ARCHITECTURE
-RUN export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-arm64/jre/
+RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/' >> ~/.bashrc # CHANGE DEPENDING ON CHIP ARCHITECTURE
+#RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-arm64/jre/' >> ~/.bashrc
+RUN export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/ # CHANGE DEPENDING ON CHIP ARCHITECTURE
+#  RUN export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-arm64/jre/
 
 ENV FLUME_HOME=/flume/
 ENV PATH=$PATH:$FLUME_HOME/bin/
 ENV PATH=$PATH:$FLUME_HOME/bin/flume-ng
-# ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/ # CHANGE DEPENDING ON CHIP ARCHITECTURE
-ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-arm64/jre/
+ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64/jre/ # CHANGE DEPENDING ON CHIP ARCHITECTURE
+# ENV JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-arm64/jre/
 
 # Readying for example code
 EXPOSE 44444

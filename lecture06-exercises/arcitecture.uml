@@ -1,0 +1,79 @@
+@startuml
+
+
+  node Flume {
+    storage twitter_api
+    rectangle kafka_sink
+  }
+
+  twitter_api --> kafka_sink
+
+
+  node Kafka_topics {
+    frame twitter_live
+    frame twitter_analyzed
+  }
+
+
+  node Hadoop {
+
+  }
+
+  node Hive {
+    frame twitter_live_hive
+    frame twitter_analyzed_hive
+  }
+
+  node Spark_Streaming {
+    node Consumer_A {
+      frame data_transformations 
+      frame run_ML_Algorithm
+    }
+
+    
+    node WriteToHadoop {
+
+    }
+  }
+
+  node Spark_ML {
+    frame Train_ML
+  }
+
+
+  artifact scheduler
+
+
+node backend 
+  twitter_analyzed --> backend 
+
+twitter_analyzed_hive --> backend
+
+node frontend
+backend --> frontend : pushed events over socket
+
+database client_database 
+
+client_database --> scheduler
+scheduler --> Train_ML
+
+Train_ML --> run_ML_Algorithm : use retrained ML 
+
+twitter_live  --> data_transformations
+twitter_live --> WriteToHadoop
+
+data_transformations --> run_ML_Algorithm
+run_ML_Algorithm --> twitter_analyzed
+twitter_analyzed --> WriteToHadoop
+WriteToHadoop --> Hadoop
+Hadoop --> twitter_analyzed_hive
+Hadoop --> twitter_live_hive
+
+
+kafka_sink --> twitter_live
+
+twitter_live_hive --> Train_ML
+client_database --> run_ML_Algorithm
+
+
+@enduml
