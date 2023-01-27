@@ -1,12 +1,16 @@
-from operator import truediv
 from kafka import KafkaProducer
-producer = KafkaProducer(bootstrap_servers='kafka:9092')
-exit = False
-while not exit:
-    input = input()
-    if(input == "exit"):
-        exit == True
-        break
-    producer.send('foobar', )
-for _ in range(100):
-   
+
+
+while True:
+    # input
+    string = str(input())
+
+    producer = KafkaProducer(bootstrap_servers='kafka:9092')
+
+    byt = bytes(string, 'utf-8')
+
+    future = producer.send('newmsg', byt)
+    result = future.get(timeout=60)
+
+    # output
+    print(string)
